@@ -1,0 +1,30 @@
+body {
+    background: url('../img/food.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+section {
+    padding: 20px;
+}
+
+#main-holder {
+    width: 60%;
+}
+
+#champ-table {
+    width: 50%;
+}
+
+#btn-circle {
+    width: 15vw;
+    min-width: 200px;
+    max-width: 500px;
+    height: 15vw;
+    min-height: 200px;
+    max-height: 500px;
+    padding: 10px 10px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.42857;
+}

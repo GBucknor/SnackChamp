@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Snack Champion of the Week</title>
+        <meta charset="utf-8" />
+
+        <!-- CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+                rel="stylesheet" 
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+                crossorigin="anonymous">
+        <link href="css/main.css" rel="stylesheet" />
+
+        <!-- Javascript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="js/chooser.js"></script>
+    </head>
+    <body>
+        <header class="d-flex justify-content-center">
+            <h2>Roll for snack champ of the week.</h2>
+        </header>
+        <main class="d-flex justify-content-center">
+            <div id="main-holder" class="bg-dark">
+                <section class="d-flex justify-content-center">
+                    <button type="button" id="btn-circle" class="btn btn-outline-light" onclick="rollingSim()">
+                        <h3 id="roll-text">LET'S ROLL</h3>
+                    </button>
+                </section>
+                <section class="d-flex justify-content-center">
+                    <div id="champ-table">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Tractionite</th>
+                                </tr>
+                            </thead>
+                            <tbody id="champs">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer class="d-flex justify-content-center">
+            <small>Photo by Georgia Vagim on Unsplash</small>
+        </footer>
+    </body>
+</html>
