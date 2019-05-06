@@ -23,6 +23,9 @@ const names = [
     'Daniel Lin',
     'Amir Khaledi'
 ];
+
+const reserves = [];
+
 let defaultDay = 0;
 let currentIndex = 0;
 
@@ -35,6 +38,16 @@ const getTextDay = (dayNumber) => {
     return days[dayNumber];
 }
 
+const undo = () => {
+    if (reserves.length > 0) {
+        names.push(reserves.pop());
+        $('#champs tr:last-child').remove();
+        (defaultDay > 1) ? toggleChampBtn($('#btn-circle')) : null;
+        (--defaultDay <= 0) ? $('#undo-btn').attr('hidden', true) : null;
+        console.log(names);
+    }
+}
+
 const rollForChamp = () => {
     let numberOfOptions = names.length;
     currentIndex = Math.floor(Math.random() * Math.floor(numberOfOptions));
@@ -43,7 +56,7 @@ const rollForChamp = () => {
     );
 }
 
-const toggleBtn = (btn) => {
+const toggleChampBtn = (btn) => {
     if (btn.attr('disabled')) {
         btn.attr('disabled', false);
     } else {
@@ -58,14 +71,14 @@ const populateTractioniteTable = () => {
     $(row).append(day);
     $(row).append(name);
     $('#champs').append(row);
-    names.pop(currentIndex);
-    (++defaultDay <= 1) ? toggleBtn($('#btn-circle')) : $('#roll-text').html('Enjoy your snacks!');
+    reserves.push(names.splice(currentIndex, 1)[0]);
+    (++defaultDay <= 1) ? toggleChampBtn($('#btn-circle')) : $('#roll-text').html('Enjoy your snacks!');
     (defaultDay > 0) ? $('#undo-btn').attr('hidden', false) : null;
 }
 
 const deceleratingTimeout = (callback, factor, times) => {
     let internalCallback = function(tick, counter) {
-        toggleBtn($('#btn-circle'));
+        toggleChampBtn($('#btn-circle'));
         return () => {
             if (--tick >= 0) {
                 window.setTimeout(internalCallback, ++counter * factor);
