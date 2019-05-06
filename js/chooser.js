@@ -19,7 +19,9 @@ const names = [
     'Liz Kundilivskaya',
     'Michael Cillis',
     'Geri Vallee',
-    'Brian Anderson'
+    'Brian Anderson',
+    'Daniel Lin',
+    'Amir Khaledi'
 ];
 let defaultDay = 0;
 let currentIndex = 0;
