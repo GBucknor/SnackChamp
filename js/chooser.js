@@ -11,7 +11,7 @@ const names = [
     'Ricardo Visbal',
     'Thomas Alain',
     'Liza Park',
-    'Calex Peterson',
+    'Calex Petersen',
     'Peter Reimer',
     'Garel Bucknor',
     'Ryan Stoppler',
