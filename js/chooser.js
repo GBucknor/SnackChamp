@@ -21,7 +21,8 @@ const names = [
     'Geri Vallee',
     'Brian Anderson',
     'Daniel Lin',
-    'Amir Khaledi'
+    'Amir Khaledi',
+    'Grant Adamson'
 ];
 
 const reserves = [];
