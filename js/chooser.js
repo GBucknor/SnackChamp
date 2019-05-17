@@ -1,29 +1,24 @@
 /**
  * Picks 2 people from your team to bring in snacks next week.
+ * 
  * @author Garel Bucknor
+ * @date May 
  */
 
-/* VARIABLES */
-const names = [
-    'David Barrera',
-    'Madeline Luke',
-    'Jordan Lin',
-    'Ricardo Visbal',
-    'Thomas Alain',
-    'Liza Park',
-    'Calex Petersen',
-    'Peter Reimer',
-    'Garel Bucknor',
-    'Ryan Stoppler',
-    'Doug Jodrell',
-    'Liz Kundilivskaya',
-    'Michael Cillis',
-    'Geri Vallee',
-    'Brian Anderson',
-    'Daniel Lin',
-    'Amir Khaledi',
-    'Grant Adamson'
-];
+/* Squad member names */
+
+let names = [];
+
+$.ajax({
+    url: 'https://snack-champ.herokuapp.com/api/v1/squads/Business+Technology',
+    type: 'GET',
+    dataType: 'json',
+    success: (response) => {
+        console.log(response.data.names);
+        names = response.data.names;
+        toggleChampBtn($('#btn-circle'));
+    }
+});
 
 const reserves = [];
 
