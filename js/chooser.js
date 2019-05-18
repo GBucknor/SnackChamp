@@ -40,7 +40,6 @@ const undo = () => {
         $('#champs tr:last-child').remove();
         (defaultDay > 1) ? toggleChampBtn($('#btn-circle')) : null;
         (--defaultDay <= 0) ? $('#undo-btn').attr('hidden', true) : null;
-        console.log(names);
     }
 }
 
@@ -60,6 +59,18 @@ const toggleChampBtn = (btn) => {
     }
 }
 
+const updateReserves = () => {
+    $.ajax({
+        url: 'https://snack-champ.herokuapp.com/api/v1/squads/reserves/Business+Technology',
+        type: 'PUT',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({reserves: reserves})
+    }).done((msg) => {
+        console.log('Data saved: ' + msg);
+    });
+}
+
 const populateTractioniteTable = () => {
     let row = $('<tr></tr>');
     let day = $('<td></td>').html(getTextDay(defaultDay));
@@ -68,8 +79,12 @@ const populateTractioniteTable = () => {
     $(row).append(name);
     $('#champs').append(row);
     reserves.push(names.splice(currentIndex, 1)[0]);
-    (++defaultDay <= 1) ? toggleChampBtn($('#btn-circle')) : $('#roll-text').html('Enjoy your snacks!');
-    (defaultDay > 0) ? $('#undo-btn').attr('hidden', false) : null;
+    if (++defaultDay <= 1) {
+        toggleChampBtn($('#btn-circle'))
+    } else {
+        $('#roll-text').html('Enjoy your snacks!');
+        updateReserves();
+    }
 }
 
 const deceleratingTimeout = (callback, factor, times) => {
