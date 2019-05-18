@@ -14,8 +14,8 @@ $.ajax({
     type: 'GET',
     dataType: 'json',
     success: (response) => {
-        console.log(response.data.names);
-        names = response.data.names;
+        console.log(response.data);
+        names = response.data;
         toggleChampBtn($('#btn-circle'));
     }
 });
