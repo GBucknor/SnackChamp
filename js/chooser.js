@@ -34,7 +34,7 @@ const getTextDay = (dayNumber) => {
     return days[dayNumber];
 }
 
-const undo = () => {
+const undo = (btn) => {
     if (reserves.length > 0) {
         names.push(reserves.pop());
         $('#champs tr:last-child').remove();
@@ -83,7 +83,7 @@ const populateTractioniteTable = () => {
         toggleChampBtn($('#btn-circle'))
     } else {
         $('#roll-text').html('Enjoy your snacks!');
-        updateReserves();
+        $('#save-btn').attr('hidden', false);
     }
 }
 
