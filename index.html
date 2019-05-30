@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Snack Champion of the Week</title>
+        <title>Snack Champions of the Week</title>
         <meta charset="utf-8" />
 
         <!-- CSS -->
@@ -21,11 +21,12 @@
             <div class="row align-items-center h-100">
                 <main class="my-auto">
                     <header class="d-flex justify-content-center">
-                        <h2>Roll for snack champ of the week.</h2>
+                        <h2>Roll for your snack champs of the week.</h2>
                     </header>
                     <div id="main-holder">
                         <section class="d-flex justify-content-center">
                             <button type="button" id="btn-circle" class="btn btn-outline-light" disabled="disabled" onclick="rollingSim()">
+                                <span id="main-spinner" class="spinner-border" role="status" aria-hidden="true"></span>
                                 <h3 id="roll-text">LET'S ROLL</h3>
                             </button>
                         </section>
@@ -44,10 +45,34 @@
                             </div>
                         </section>
                         <section class="d-flex justify-content-center">
-                            <button id="save-btn" class="btn btn-light" hidden="hidden" onclick="updateReserves()"><strong>Save</strong></button>
+                            <div class="btn-group-vertical">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#past-champ-modal">
+                                    <strong>Past Champs</strong>
+                                </button>
+                                <button id="save-btn" class="btn btn-success" hidden="hidden" onclick="updateReserves()">
+                                    <strong>Save</strong>
+                                </button>
+                            </div>
                         </section>
                     </div>
                 </main>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="past-champ-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Previous Champions</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="past-champs" class="list-group list-group-flush"></ul>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="d-flex justify-content-center">

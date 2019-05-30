@@ -8,7 +8,12 @@
 /* Squad member names */
 
 let names = [];
+const reserves = [];
 
+
+/*
+    AJAX calls
+*/
 $.ajax({
     url: 'https://snack-champ.herokuapp.com/api/v1/squads/Business+Technology',
     type: 'GET',
@@ -17,10 +22,26 @@ $.ajax({
         console.log(response.data);
         names = response.data;
         toggleChampBtn($('#btn-circle'));
+        $('#main-spinner').css('display', 'none');
+        $('#roll-text').fadeIn('slow');
     }
 });
 
-const reserves = [];
+$.ajax({
+    url: 'https://snack-champ.herokuapp.com/api/v1/squads/reserves/Business+Technology',
+    type: 'GET',
+    dataType: 'json',
+    success: (response) => {
+        response.data.forEach(element => {
+            let listItem = $(`<li class="list-group-item">${element}</>`)
+            $('#past-champs').append(listItem);
+        });
+    }
+});
+
+$('#past-champ-modal').modal({
+    keyboard: true
+});
 
 let defaultDay = 0;
 let currentIndex = 0;
@@ -104,4 +125,6 @@ const deceleratingTimeout = (callback, factor, times) => {
 
 const rollingSim = () => {
     deceleratingTimeout(rollForChamp, 5, 40);
+    // For testing
+    //deceleratingTimeout(rollForChamp, 5, 1);
 }
