@@ -131,7 +131,7 @@ const squadSelected = () => {
     console.log(squad);
     if (squad != 'None') {
         $('#welcome').fadeOut().promise().done(() => {
-            $('#roller-holder').fadeIn();
+            $('#roller-holder').slideDown();
             $.ajax({
                 url: `https://snack-champ.herokuapp.com/api/v1/squads/${squad}`,
                 type: 'GET',
