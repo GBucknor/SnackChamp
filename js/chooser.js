@@ -8,6 +8,7 @@
 /* Squad member names */
 
 let names = [];
+let squad;
 const reserves = [];
 
 
@@ -15,15 +16,17 @@ const reserves = [];
     AJAX calls
 */
 $.ajax({
-    url: 'https://snack-champ.herokuapp.com/api/v1/squads/Business+Technology',
+    url:'https://snack-champ.herokuapp.com/api/v1/squads',
     type: 'GET',
     dataType: 'json',
     success: (response) => {
-        console.log(response.data);
-        names = response.data;
-        toggleChampBtn($('#btn-circle'));
-        $('#main-spinner').css('display', 'none');
-        $('#roll-text').fadeIn('slow');
+        const squadSelect = $('#squad-select');
+        const noneOption = $('<option selected>None</option>');
+        squadSelect.append(noneOption);
+        response.data.forEach(element => {
+            let listItem = $(`<option>${element}</option>`);
+            squadSelect.append(listItem);
+        });
     }
 });
 
@@ -121,6 +124,32 @@ const deceleratingTimeout = (callback, factor, times) => {
         }
     } (times, 0);
     window.setTimeout(internalCallback, factor);
+}
+
+const squadSelected = () => {
+    squad = nameParser($('#squad-select').find(':selected').text());
+    console.log(squad);
+    if (squad != 'None') {
+        $('#welcome').fadeOut().promise().done(() => {
+            $('#roller-holder').fadeIn();
+            $.ajax({
+                url: `https://snack-champ.herokuapp.com/api/v1/squads/${squad}`,
+                type: 'GET',
+                dataType: 'json',
+                success: (response) => {
+                    console.log(response.data);
+                    names = response.data;
+                    toggleChampBtn($('#btn-circle'));
+                    $('#main-spinner').css('display', 'none');
+                    $('#roll-text').fadeIn('slow');
+                }
+            });
+        });
+    }
+}
+
+const nameParser = (word) => {
+    return word.replace(new RegExp(' ', 'g'), '+')
 }
 
 const rollingSim = () => {

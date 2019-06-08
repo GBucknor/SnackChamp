@@ -6,19 +6,8 @@ body {
     height: 100vh;
 }
 
-header h2 {
-	font-family: 'Lobster', cursive;
-}
-
 section {
     padding: 20px;
-}
-
-main {
-    color: white;
-    padding: 30px;
-    border-radius: 15px;
-    background: rgba(52, 58, 64, .7);
 }
 
 footer {
@@ -29,12 +18,27 @@ footer {
 	color: white;
 }
 
+div {
+    padding: 10px;
+}
+
 .container {
     height: 100vh;
 }
 
 .row {
     height: 100vh;
+}
+
+.header h2 {
+	font-family: 'Lobster', cursive;
+}
+
+.center-box {
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    background: rgba(52, 58, 64, .7);
 }
 
 #champ-table {
@@ -56,5 +60,9 @@ footer {
 }
 
 #roll-text {
+    display: none;
+}
+
+#roller-holder {
     display: none;
 }
