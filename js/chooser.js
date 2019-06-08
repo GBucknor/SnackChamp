@@ -81,15 +81,15 @@ const toggleChampBtn = (btn) => {
 }
 
 const updateReserves = () => {
-    $.ajax({
-        url: 'https://snack-champ.herokuapp.com/api/v1/squads/reserves/Business+Technology',
-        type: 'PUT',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({reserves: reserves})
-    }).done((msg) => {
-        console.log('Data saved: ' + msg);
-    });
+    // $.ajax({
+    //     url: 'https://snack-champ.herokuapp.com/api/v1/squads/reserves/Business+Technology',
+    //     type: 'PUT',
+    //     dataType: 'json',
+    //     contentType: 'application/json',
+    //     data: JSON.stringify({reserves: reserves})
+    // }).done((msg) => {
+    //     console.log('Data saved: ' + msg);
+    // });
 }
 
 const populateTractioniteTable = () => {
