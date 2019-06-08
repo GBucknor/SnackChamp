@@ -39,7 +39,23 @@ $.ajax({
     }
 });
 
+$.ajax({
+    url: 'https://snack-champ.herokuapp.com/api/v1/squads/reserves/Business+Technology',
+    type: 'GET',
+    dataType: 'json',
+    success: (response) => {
+        response.data.forEach(element => {
+            let listItem = $(`<li class="list-group-item">${element}</>`)
+            $('#vote-champs').append(listItem);
+        });
+    }
+});
+
 $('#past-champ-modal').modal({
+    keyboard: true
+});
+
+$('#vote-champ-modal').modal({
     keyboard: true
 });
 
