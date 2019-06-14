@@ -9,6 +9,7 @@
 
 let names = [];
 let squad;
+let days = [];
 const reserves = [];
 
 
@@ -30,18 +31,6 @@ $.ajax({
     }
 });
 
-$.ajax({
-    url: 'https://snack-champ.herokuapp.com/api/v1/squads/reserves/Business+Technology',
-    type: 'GET',
-    dataType: 'json',
-    success: (response) => {
-        response.data.forEach(element => {
-            let listItem = $(`<li class="list-group-item">${element}</>`)
-            $('#past-champs').append(listItem);
-        });
-    }
-});
-
 $('#past-champ-modal').modal({
     keyboard: true
 });
@@ -51,10 +40,6 @@ let currentIndex = 0;
 
 /* FUNCTIONS */
 const getTextDay = (dayNumber) => {
-    let days = [
-        'Monday',
-        'Wednesday',
-    ];
     return days[dayNumber];
 }
 
@@ -62,7 +47,7 @@ const undo = (btn) => {
     if (reserves.length > 0) {
         names.push(reserves.pop());
         $('#champs tr:last-child').remove();
-        (defaultDay > 1) ? toggleChampBtn($('#btn-circle')) : null;
+        (defaultDay > days.length) ? toggleChampBtn($('#btn-circle')) : null;
         (--defaultDay <= 0) ? $('#undo-btn').attr('hidden', true) : null;
     }
 }
@@ -85,7 +70,7 @@ const toggleChampBtn = (btn) => {
 
 const updateReserves = () => {
     $.ajax({
-        url: 'https://snack-champ.herokuapp.com/api/v1/squads/reserves/Business+Technology',
+        url: `https://snack-champ.herokuapp.com/api/v1/squads/reserves/${squad}`,
         type: 'PUT',
         dataType: 'json',
         contentType: 'application/json',
@@ -103,7 +88,7 @@ const populateTractioniteTable = () => {
     $(row).append(name);
     $('#champs').append(row);
     reserves.push(names.splice(currentIndex, 1)[0]);
-    if (++defaultDay <= 1) {
+    if (++defaultDay < days.length) {
         toggleChampBtn($('#btn-circle'))
     } else {
         $('#roll-text').html('Enjoy your snacks!');
@@ -126,24 +111,44 @@ const deceleratingTimeout = (callback, factor, times) => {
     window.setTimeout(internalCallback, factor);
 }
 
+const getSquad = () => {
+    $('#welcome').fadeOut().promise().done(() => {
+        $('#roller-holder').slideDown();
+        $.ajax({
+            url: `https://snack-champ.herokuapp.com/api/v1/squads/${squad}`,
+            type: 'GET',
+            dataType: 'json',
+            success: (response) => {
+                names = response.data;
+                toggleChampBtn($('#btn-circle'));
+                $('#main-spinner').css('display', 'none');
+                $('#roll-text').fadeIn('slow');
+            }
+        });
+    });
+}
+
+const getPastChamps = () => {
+    $.ajax({
+        url: `https://snack-champ.herokuapp.com/api/v1/squads/reserves/${squad}`,
+        type: 'GET',
+        dataType: 'json',
+        success: (response) => {
+            response.data.forEach(element => {
+                let listItem = $(`<li class="list-group-item">${element}</>`);
+                $('#past-champs').append(listItem);
+            });
+        }
+    });
+}
+
 const squadSelected = () => {
     squad = nameParser($('#squad-select').find(':selected').text());
-    console.log(squad);
     if (squad != 'None') {
-        $('#welcome').fadeOut().promise().done(() => {
-            $('#roller-holder').slideDown();
-            $.ajax({
-                url: `https://snack-champ.herokuapp.com/api/v1/squads/${squad}`,
-                type: 'GET',
-                dataType: 'json',
-                success: (response) => {
-                    console.log(response.data);
-                    names = response.data;
-                    toggleChampBtn($('#btn-circle'));
-                    $('#main-spinner').css('display', 'none');
-                    $('#roll-text').fadeIn('slow');
-                }
-            });
+        getSquad();
+        getPastChamps();
+        $('input[name="days"]:checked').each(function() {
+            days.push($(this).val());
         });
     }
 }
