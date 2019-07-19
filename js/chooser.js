@@ -154,11 +154,16 @@ const squadSelected = () => {
 }
 
 const nameParser = (word) => {
-    return word.replace(new RegExp(' ', 'g'), '+')
+    return word.replace(new RegExp(' ', 'g'), '+');
 }
 
 const rollingSim = () => {
-    deceleratingTimeout(rollForChamp, 5, 40);
+    if (names.length > 1) {
+        deceleratingTimeout(rollForChamp, 5, 40);
+    } else {
+        rollForChamp();
+        populateTractioniteTable();
+    }
     // For testing
     //deceleratingTimeout(rollForChamp, 5, 1);
 }
