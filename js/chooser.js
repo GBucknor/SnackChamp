@@ -31,6 +31,21 @@ $.ajax({
     }
 });
 
+/*
+    NOTIFY.JS SETTINGS
+*/
+$.notify.addStyle('verdantgreen', {
+    html: '<div>🎉 <strong><span data-notify-text /></strong> 🎉</div>',
+    classes: {
+        base: {
+            'white-space': 'nowrap',
+            'color': '#6CAE75',
+            'background-color': '#EDEAD0',
+            'padding': '5px'
+        }
+    }
+});
+
 $('#past-champ-modal').modal({
     keyboard: true
 });
@@ -78,6 +93,12 @@ const updateReserves = () => {
     }).done((msg) => {
         console.log('Data saved: ' + msg);
     });
+    $('#save-btn').notify(
+        'Success!', { 
+            elementPosition: 'top center',
+            style: 'verdantgreen'
+        }
+    );
 }
 
 const populateTractioniteTable = () => {
