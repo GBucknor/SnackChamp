@@ -188,3 +188,21 @@ const rollingSim = () => {
     // For testing
     //deceleratingTimeout(rollForChamp, 5, 1);
 }
+
+const createPoll = () => {
+    let pollBody = {
+        'title': 'Who was the snack champion of last week?',
+        'multi': false,
+        'options': reserves.slice(reserves.length - 2, reserves.length - 1),
+        'dupcheck': 'normal'
+    };
+    $.ajax({
+        url: `https://strawpoll.me/api/v2/polls`,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(pollBody)
+    }).done((data) => {
+        console.log('Data saved: ' + data);
+    });
+}
