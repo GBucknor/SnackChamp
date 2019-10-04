@@ -10,6 +10,7 @@
 let names = [];
 let squad;
 let days = [];
+let nameOverride = null;
 const reserves = [];
 
 
@@ -104,11 +105,18 @@ const updateReserves = () => {
 const populateTractioniteTable = () => {
     let row = $('<tr></tr>');
     let day = $('<td></td>').html(getTextDay(defaultDay));
+    if (defaultDay === 0 && nameOverride != null) {
+        $('#roll-text').html(
+            nameOverride
+        );
+    }
     let name = $('<td></td>').html($('#roll-text').html());
     $(row).append(day);
     $(row).append(name);
     $('#champs').append(row);
-    reserves.push(names.splice(currentIndex, 1)[0]);
+    if (nameOverride == null || defaultDay != 0) {
+        reserves.push(names.splice(currentIndex, 1)[0]);
+    }
     if (++defaultDay < days.length) {
         toggleChampBtn($('#btn-circle'))
     } else {
